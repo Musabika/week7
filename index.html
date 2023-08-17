@@ -41,22 +41,27 @@
     <script>
 
        const Apikey= "e4b6c774947c43fa74a830d21147a917";
-       const ApiUrl ="https://api.openweathermap.org/data/2.5/weather?units=metric&q=kigali";
+       const ApiUrl ="https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
-       async function checkweather(){
-        const response = await fetch(ApiUrl + `&appid=${Apikey}`);
+        const searchbox = document.querySelector(".search input");
+        const searchbtn = document.querySelector(".search button");
+
+       async function checkweather(city){
+        const response = await fetch(ApiUrl + city + `&appid=${Apikey}`);
         var data = await response.json();
 
         console.log(data);
 
         document.querySelector(".city").innerHTML = data.name;
-            <h1 class="temp">22°C</h1>
-        document.querySelector(".temp").innerHTML = math.round(data.main.temp) + "°C";
+        document.querySelector(".temp").innerHTML = data.main.temp + "°C";
         document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
-        document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
+        document.querySelector(".wind").innerHTML = data.wind.speed + "";
        }
 
-       checkweather()
+       searchbtn.addEventListener("click", ()=>{
+        checkweather(searchbox.value);
+       })
+       
     </script>
 </body>
 </html>
